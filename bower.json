@@ -8,6 +8,7 @@
     "angular": "1.4.3"
   },
   "dependencies": {
+    "angular-resource": "1.4.3",
     "ng-token-auth": "~0.0.28"
   }
 }
