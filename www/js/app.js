@@ -32,23 +32,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       controller: 'AppCtrl'
     })
 
-    .state('app.search', {
-      url: '/search',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/search.html'
-        }
-      }
-    })
-
-    .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html'
-        }
-      }
-    })
     .state('app.alerts', {
       url: '/alerts',
       views: {
@@ -72,7 +55,13 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   $urlRouterProvider.otherwise('/app/alerts');
 
   $authProvider.configure({
-    apiUrl: 'http://localhost:3000/OAuth'
+    apiUrl: 'https://ippd-test-app.herokuapp.com',
+    omniauthWindowType: 'inAppBrowser',
+    authProviderPaths: {
+      windowslive:   '/auth/windowslive',
+      google:    '/auth/google_oauth2'
+    }
+
   });
 
 });

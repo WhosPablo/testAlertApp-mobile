@@ -1,7 +1,7 @@
 angular.module('starter.services', [])
 
 .factory('Alert', function ($resource) {
-  return $resource("http://localhost:3000/alerts/:id.json");
+  return $resource("https://ippd-test-app.herokuapp.com/alerts/:id.json");
 
 })
 

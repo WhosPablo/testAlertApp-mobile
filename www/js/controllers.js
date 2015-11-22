@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function ($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function ($scope, $ionicModal, $timeout, $auth) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -30,8 +30,15 @@ angular.module('starter.controllers', [])
   };
 
   // Perform the login action when the user submits the login form
-  $scope.doLogin = function () {
+  $scope.doLogin = function (provider) {
     console.log('Doing login', $scope.loginData);
+    $auth.authenticate(provider)
+      .then(function(resp) {
+        alert("success")
+      })
+      .catch(function(resp) {
+        alert("error")
+      });
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
@@ -42,9 +49,12 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AlertsCtrl', function ($scope, Alert) {
+
   Alert.query().$promise.then(function (response) {
     $scope.alerts = response;
-    console.log($scope.alerts);
+    //console.log($scope.alerts);
+  }, function(reason){
+    //alert("ERROR: WTF");
   });
 
   $scope.doRefresh = function () {
@@ -52,7 +62,7 @@ angular.module('starter.controllers', [])
     Alert.query().$promise
       .then(function (response) {
         $scope.alerts = response;
-        console.log($scope.alerts);
+        //console.log($scope.alerts);
       })
       .then(function () {
         // Stop the ion-refresher from spinning
@@ -62,10 +72,15 @@ angular.module('starter.controllers', [])
 })
 
 .controller('AlertCtrl', function ($scope, Alert, $stateParams) {
-  console.log($stateParams)
 
   Alert.get({id: $stateParams.alertId}).$promise.then(function (response) {
     $scope.alert = response;
-    console.log($scope.alert);
+    //console.log($scope.alert);
   });
+})
+
+.controller('LoginCtrl', function(loginService){
+  $scope.login = function(){
+    loginService.authenticate()
+  };
 });
